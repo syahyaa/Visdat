@@ -18,7 +18,7 @@ st.set_page_config(page_title="Dashboard Analisis Kesehatan", layout="wide")
 # ================= LOAD DATA =================
 # df = pd.read_excel("UAS_FIX_DATA_BERSIH.xlsx")
 # df.columns = df.columns.str.strip()
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.getcwd()
 
 # Path file Excel
 file_path = os.path.join(BASE_DIR, "UAS_FIX_DATA_BERSIH.xlsx")
@@ -226,3 +226,4 @@ Dashboard ini menyajikan analisis data kesehatan pasien melalui:
 Dashboard ini dirancang untuk membantu analisis risiko penyakit secara visual dan interaktif.
 
 """)
+
