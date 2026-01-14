@@ -20,16 +20,13 @@ st.set_page_config(page_title="Dashboard Analisis Kesehatan", layout="wide")
 # df = pd.read_excel("UAS_FIX_DATA_BERSIH.xlsx")
 # df.columns = df.columns.str.strip()
 BASE_DIR = os.getcwd()
-
-# File Excel di root folder proyek
 file_path = os.path.join(BASE_DIR, "UAS_FIX_DATA_BERSIH.xlsx")
 
-# Load data
 if os.path.exists(file_path):
     df = pd.read_excel(file_path)
     st.success("File berhasil dibaca!")
 else:
-    st.error(f"File tidak ditemukan. Pastikan 'UAS_FIX_DATA_BERSIH.xlsx' sudah di-upload ke proyek Streamlit.")
+    st.error("File tidak ditemukan. Pastikan 'UAS_FIX_DATA_BERSIH.xlsx' sudah di-upload ke proyek Streamlit.")
     st.stop()
 
 # ================= SIDEBAR FILTER =================
@@ -227,6 +224,7 @@ Dashboard ini menyajikan analisis data kesehatan pasien melalui:
 Dashboard ini dirancang untuk membantu analisis risiko penyakit secara visual dan interaktif.
 
 """)
+
 
 
 
