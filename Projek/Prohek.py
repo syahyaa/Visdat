@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+import os 
 
 # ================= KONFIGURASI GLOBAL =================
 sns.set_style("whitegrid")
@@ -226,4 +227,5 @@ Dashboard ini menyajikan analisis data kesehatan pasien melalui:
 Dashboard ini dirancang untuk membantu analisis risiko penyakit secara visual dan interaktif.
 
 """)
+
 
