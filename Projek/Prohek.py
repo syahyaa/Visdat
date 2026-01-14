@@ -19,15 +19,16 @@ st.set_page_config(page_title="Dashboard Analisis Kesehatan", layout="wide")
 # ================= LOAD DATA =================
 # df = pd.read_excel("UAS_FIX_DATA_BERSIH.xlsx")
 # df.columns = df.columns.str.strip()
-BASE_DIR = os.getcwd()
-file_path = os.path.join(BASE_DIR, "UAS_FIX_DATA_BERSIH.xlsx")
 
-if os.path.exists(file_path):
-    df = pd.read_excel(file_path)
-    st.success("File berhasil dibaca!")
-else:
-    st.error("File tidak ditemukan. Pastikan 'UAS_FIX_DATA_BERSIH.xlsx' sudah di-upload ke proyek Streamlit.")
+url = "https://github.com/syahyaa/Visdat/blob/39b28bb12e451d6769de96f30f6f121229823654/Projek/UAS_FIX_DATA_BERSIH.xlsx"
+
+try:
+    df = pd.read_excel(url)
+    st.success("File berhasil dibaca dari GitHub!")
+except Exception as e:
+    st.error(f"Gagal membaca file: {e}")
     st.stop()
+
 
 # ================= SIDEBAR FILTER =================
 st.sidebar.header("🔍 Filter Data Pasien")
@@ -224,6 +225,7 @@ Dashboard ini menyajikan analisis data kesehatan pasien melalui:
 Dashboard ini dirancang untuk membantu analisis risiko penyakit secara visual dan interaktif.
 
 """)
+
 
 
 
