@@ -23,7 +23,7 @@ st.set_page_config(page_title="Dashboard Analisis Kesehatan", layout="wide")
 url = "https://github.com/syahyaa/Visdat/blob/39b28bb12e451d6769de96f30f6f121229823654/Projek/UAS_FIX_DATA_BERSIH.xlsx"
 
 try:
-    df = pd.read_excel(url)
+    df = pd.read_excel(url, engine='openpyxl')
     st.success("File berhasil dibaca dari GitHub!")
 except Exception as e:
     st.error(f"Gagal membaca file: {e}")
@@ -225,6 +225,7 @@ Dashboard ini menyajikan analisis data kesehatan pasien melalui:
 Dashboard ini dirancang untuk membantu analisis risiko penyakit secara visual dan interaktif.
 
 """)
+
 
 
 
