@@ -20,14 +20,55 @@ st.set_page_config(page_title="Dashboard Analisis Kesehatan", layout="wide")
 # df = pd.read_excel("UAS_FIX_DATA_BERSIH.xlsx")
 # df.columns = df.columns.str.strip()
 
-url = "https://github.com/syahyaa/Visdat/blob/39b28bb12e451d6769de96f30f6f121229823654/Projek/UAS_FIX_DATA_BERSIH.xlsx"
+# url = "https://github.com/syahyaa/Visdat/blob/39b28bb12e451d6769de96f30f6f121229823654/Projek/UAS_FIX_DATA_BERSIH.xlsx"
 
-try:
-    df = pd.read_excel(url, engine='openpyxl')
-    st.success("File berhasil dibaca dari GitHub!")
-except Exception as e:
-    st.error(f"Gagal membaca file: {e}")
-    st.stop()
+# try:
+#     df = pd.read_excel(url, engine='openpyxl')
+#     st.success("File berhasil dibaca dari GitHub!")
+# except Exception as e:
+#     st.error(f"Gagal membaca file: {e}")
+#     st.stop()
+
+# --- Opsi 1: File lokal di-upload ke Streamlit Cloud ---
+local_file = "UAS_FIX_DATA_BERSIH.xlsx"
+
+# --- Opsi 2: File dari GitHub raw link ---
+github_url = "https://raw.githubusercontent.com/syahyaa/Visdat/39b28bb12e451d6769de96f30f6f121229823654/Projek/UAS_FIX_DATA_BERSIH.xlsx"
+
+df = None
+
+# Cek file lokal dulu
+if os.path.exists(local_file):
+    try:
+        df = pd.read_excel(local_file, engine='openpyxl')
+        st.success(f"File berhasil dibaca dari file lokal: {local_file}")
+    except Exception as e:
+        st.error(f"Gagal membaca file lokal: {e}")
+        st.stop()
+else:
+    # Kalau file lokal tidak ada, coba ambil dari GitHub
+    try:
+        df = pd.read_excel(github_url, engine='openpyxl')
+        st.success("File berhasil dibaca dari GitHub!")
+    except Exception as e:
+        st.error(f"Gagal membaca file dari GitHub: {e}")
+        st.stop()
+
+# --- Tampilkan preview data ---
+st.subheader("Preview Data")
+st.dataframe(df.head())
+
+# --- Contoh filter interaktif ---
+st.subheader("Filter Data")
+if "Age" in df.columns:
+    min_age = int(df["Age"].min())
+    max_age = int(df["Age"].max())
+    age_filter = st.slider("Pilih Rentang Usia:", min_age, max_age, (min_age, max_age))
+    df_filtered = df[(df["Age"] >= age_filter[0]) & (df["Age"] <= age_filter[1])]
+    st.write(f"Menampilkan {len(df_filtered)} baris setelah filter usia")
+    st.dataframe(df_filtered.head())
+else:
+    st.warning("Kolom 'Age' tidak ditemukan di dataset.")
 
 
 # ================= SIDEBAR FILTER =================
@@ -225,6 +266,7 @@ Dashboard ini menyajikan analisis data kesehatan pasien melalui:
 Dashboard ini dirancang untuk membantu analisis risiko penyakit secara visual dan interaktif.
 
 """)
+
 
 
 
