@@ -16,8 +16,20 @@ plt.rcParams["ytick.labelsize"] = 10
 st.set_page_config(page_title="Dashboard Analisis Kesehatan", layout="wide")
 
 # ================= LOAD DATA =================
-df = pd.read_excel("UAS_FIX_DATA_BERSIH.xlsx")
-df.columns = df.columns.str.strip()
+# df = pd.read_excel("UAS_FIX_DATA_BERSIH.xlsx")
+# df.columns = df.columns.str.strip()
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Path file Excel
+file_path = os.path.join(BASE_DIR, "UAS_FIX_DATA_BERSIH.xlsx")
+
+# Load data
+try:
+    df = pd.read_excel(file_path)
+    st.success("File berhasil dibaca!")
+except FileNotFoundError:
+    st.error(f"File tidak ditemukan di path: {file_path}")
+    st.stop()
 
 # ================= SIDEBAR FILTER =================
 st.sidebar.header("🔍 Filter Data Pasien")
@@ -212,4 +224,5 @@ Dashboard ini menyajikan analisis data kesehatan pasien melalui:
 - **Analisis lanjutan** menggunakan histogram, scatter, dan boxplot  
 
 Dashboard ini dirancang untuk membantu analisis risiko penyakit secara visual dan interaktif.
+
 """)
